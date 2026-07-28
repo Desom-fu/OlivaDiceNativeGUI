@@ -1501,7 +1501,10 @@ class ConfigUI(object):
             return {}
 
         def fetch_name(bot_hash):
-            return bot_hash, self.get_bot_display_name(bot_hash, bot_info_dict[bot_hash])
+            try:
+                return bot_hash, self.get_bot_display_name(bot_hash, bot_info_dict[bot_hash])
+            except Exception:
+                return bot_hash, '未知'
 
         max_workers = min(32, len(bot_hashes))
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
